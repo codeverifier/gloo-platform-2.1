@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: north-south-gateway-tls-cert
+  namespace: istio-ingress
+spec:
+  secretName: north-south-gateway-tls
+  commonName: apps.$DOMAIN_NAME
+  dnsNames:
+    - apps.$DOMAIN_NAME
+  issuerRef:
+    name: global-cert-issuer
+    kind: ClusterIssuer

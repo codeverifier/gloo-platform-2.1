@@ -1,0 +1,36 @@
+apiVersion: admin.gloo.solo.io/v2
+kind: WorkspaceSettings
+metadata:
+  name: backend-apis-team-settings
+  namespace: backend-apis-team
+spec:
+  exportTo:
+    - workspaces:
+      - name: web-frontend-team
+      resources:
+        - kind: SERVICE
+        - kind: VIRTUAL_DESTINATION
+        - kind: ROUTE_TABLE
+        - kind: EXTERNAL_SERVICE
+    - workspaces:
+      - name: ops-team
+      resources:
+        - kind: SERVICE
+          labels:
+            app: ratings
+        - kind: ALL
+          labels:
+            # Only expose resources with the following label
+            exposeResource: "true"
+  options:
+    eastWestGateways:
+      - selector:
+          labels:
+            istio: eastwestgateway
+    federation:
+      enabled: true
+      hostSuffix: global
+      serviceSelector:
+        - workspace: backend-apis-team
+          labels:
+            app: reviews

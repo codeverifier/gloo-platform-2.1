@@ -1,0 +1,14 @@
+apiVersion: resilience.policy.gloo.solo.io/v2
+kind: FailoverPolicy
+metadata:
+  name: reviews-failover-policy
+  namespace: backend-apis-team
+spec:
+  applyToDestinations:
+    - selector:
+        name: reviews-route-vd
+      kind: VIRTUAL_DESTINATION
+      port:
+        number: 9080
+  config:
+    localityMappings: []

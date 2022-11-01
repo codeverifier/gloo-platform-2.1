@@ -1,0 +1,33 @@
+service:
+  http:
+    type: LoadBalancer
+    port: 80
+    annotations:
+      service.beta.kubernetes.io/aws-load-balancer-type: "external"
+      service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+      service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "ip"
+      external-dns.alpha.kubernetes.io/hostname: "git-ui.${DOMAIN_NAME}"
+  ssh:
+    type: LoadBalancer
+    annotations:
+      service.beta.kubernetes.io/aws-load-balancer-type: "external"
+      service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+      service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "ip"
+      external-dns.alpha.kubernetes.io/hostname: "git-ssh.${DOMAIN_NAME}"
+
+ingress:
+  enabled: false
+
+postgresql:
+  enabled: true
+  
+gitea:
+  admin:
+    username: kasunt
+    password: Passwd00
+    email: kasunt@local.domain
+
+  config:
+    server:
+      DOMAIN: "git-ui.${DOMAIN_NAME}"
+      SSH_DOMAIN: "git-ssh.${DOMAIN_NAME}"

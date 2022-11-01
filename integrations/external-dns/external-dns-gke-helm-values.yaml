@@ -1,0 +1,17 @@
+serviceAccount:
+  # Generated via eksctl
+  create: true
+  name: "external-dns"
+
+rbac:
+  create: true
+
+provider: google
+policy: upsert-only
+domainFilters:
+  - $DOMAIN_NAME
+registry: txt
+txtOwnerId: "$MANAGED_ZONE_NAME"
+sources:
+  - service
+  - ingress

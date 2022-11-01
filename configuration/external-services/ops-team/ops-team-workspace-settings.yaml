@@ -1,0 +1,23 @@
+apiVersion: admin.gloo.solo.io/v2
+kind: WorkspaceSettings
+metadata:
+  name: ops-team-settings
+  namespace: ops-team
+spec:
+  importFrom:
+    - workspaces:
+        - name: web-frontend-team
+        - name: backend-apis-team
+      resources:
+        - kind: SERVICE
+        - kind: ALL
+          labels:
+            # Only expose resources with the following label
+            exposeResource: "true"
+  options:
+    eastWestGateways:
+      - selector:
+          labels:
+            istio: eastwestgateway
+    federation:
+      enabled: false

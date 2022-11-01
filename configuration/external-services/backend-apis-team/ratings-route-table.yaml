@@ -1,0 +1,30 @@
+apiVersion: networking.gloo.solo.io/v2
+kind: RouteTable
+metadata:
+  name: ratings-route-table
+  namespace: backend-apis-team
+  labels:
+    # To auto export
+    # workspace.solo.io/exported: "true"
+    exposeResource: "true"
+spec:
+  hosts:
+    - '*'
+  virtualGateways:
+    - name: north-south-gateway
+      namespace: ops-team
+      cluster: ${WEST_MESH_NAME}
+  workloadSelectors: []
+  http:
+    - name: ratings
+      matchers:
+        - uri:
+            prefix: /api/ratings
+      forwardTo:
+        pathRewrite: /ratings
+        destinations:
+          - ref:
+              name: ratings
+              namespace: bookinfo-backends
+            port:
+              number: 9080

@@ -1,0 +1,18 @@
+apiVersion: networking.gloo.solo.io/v2
+kind: VirtualDestination
+metadata:
+  name: reviews-route-v3-vd
+  namespace: backend-apis-team
+spec:
+  hosts:
+    - 'reviews-v3.bookinfo-backends.svc.cluster.local'
+  ports:
+    - number: 9080
+      protocol: HTTP
+      targetPort:
+        number: 9080
+  services:
+    - labels:
+        app: reviews
+      namespace: bookinfo-backends
+      cluster: ${EAST_MESH_NAME}

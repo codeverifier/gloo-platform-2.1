@@ -1,0 +1,23 @@
+apiVersion: networking.gloo.solo.io/v2
+kind: VirtualGateway
+metadata:
+  name: north-south-gateway
+  namespace: ops-team
+spec:
+  workloads:
+    - selector:
+        labels:
+          istio: ingressgateway
+        namespace: istio-ingress
+        cluster: ${WEST_MESH_NAME}
+  listeners: 
+    - http: {}
+      port:
+        number: 443
+      tls:
+        mode: SIMPLE
+        secretName: north-south-gateway-tls
+      allowedRouteTables:
+        - host: '*'
+          selector:
+            workspace: web-frontend-team

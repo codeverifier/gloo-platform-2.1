@@ -1,0 +1,13 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: oidc-dev-frontend
+  namespace: web-frontend-team
+subjects:
+  - kind: User
+    name: oidc:dev1@solo.io
+roleRef:
+  # Use the default view cluster role to attach the user
+  name: view
+  kind: ClusterRole
+  apiGroup: rbac.authorization.k8s.io

@@ -1,0 +1,11 @@
+apiVersion: networking.gloo.solo.io/v2
+kind: ExternalEndpoint
+metadata:
+  name: reviews-v5-external-endpoint
+  namespace: backend-apis-team
+  labels:
+    external-endpoint: reviews-v5-external
+spec:
+  address: 34.111.188.147
+  ports:
+    - number: 443

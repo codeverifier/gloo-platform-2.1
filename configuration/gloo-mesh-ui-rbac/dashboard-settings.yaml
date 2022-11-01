@@ -1,0 +1,22 @@
+apiVersion: admin.gloo.solo.io/v2
+kind: Dashboard
+metadata:
+  name: settings
+  namespace: gloo-mesh
+spec:
+  authz:
+    multiClusterRbac: {}
+  authn:
+    oidc:
+      userMapping:
+        usernameClaim: "email"
+        usernamePrefix: "oidc:"
+      appUrl: http://localhost:8090/
+      clientId: ${CLIENT_ID}
+      clientSecretName: dashboard
+      issuerUrl: "${KEYCLOAK_URL}/realms/master/"
+      scopes:
+        - email
+        - openid
+        - profile
+      logoutPath: /logout

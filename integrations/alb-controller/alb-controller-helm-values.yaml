@@ -1,0 +1,9 @@
+clusterName: "${CLUSTER_OWNER}-${CLUSTER_NAME}" 
+
+serviceAccount:
+  # Generated via eksctl
+  create: false 
+  name: aws-load-balancer-controller
+
+region: $EKS_CLUSTER_REGION
+vpcId: $VPC_ID

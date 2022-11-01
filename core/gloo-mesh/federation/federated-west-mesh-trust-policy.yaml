@@ -1,0 +1,23 @@
+apiVersion: admin.gloo.solo.io/v2
+kind: RootTrustPolicy
+metadata:
+  name: root-trust-policy-west-mesh
+  namespace: gloo-mesh
+spec:
+  applyToMeshes:
+    - istio:
+        selector:
+          app: istiod
+          istio: istiod
+          mesh: ${WEST_MESH_NAME}
+        namespace: istio-system
+  config:
+    agentCa:
+      vault:
+        caPath: pki/root/sign-intermediate
+        csrPath: istio-west-mesh-pki-int/intermediate/generate/exported
+        kubernetesAuth:
+          mountPath: /v1/auth/kube-west-mesh-auth
+          role: gen-int-ca-istio-west-mesh
+        server: ${VAULT_ADDR}
+    autoRestartPods: true

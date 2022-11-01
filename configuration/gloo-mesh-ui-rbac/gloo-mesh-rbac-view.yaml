@@ -1,0 +1,48 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: gloo-mesh-rbac-view
+  labels:
+    rbac.authorization.k8s.io/aggregate-to-view: "true"
+rules:
+- apiGroups:
+    - admin.gloo.solo.io/v2
+    - enterprise.gloo.solo.io/v1
+    - extensions.policy.gloo.solo.io/v2
+    - networking.gloo.solo.io/v2
+    - observability.policy.gloo.solo.io/v2
+    - resilience.policy.gloo.solo.io/v2
+    - security.policy.gloo.solo.io/v2
+    - trafficcontrol.policy.gloo.solo.io/v2
+  resources:
+    - dashboards
+    - extauthservers
+    - kubernetesclusters
+    - ratelimitserverconfigs
+    - ratelimitserversettings
+    - roottrustpolicies
+    - workspaces
+    - workspacesettings
+    - authconfigs
+    - wasmdeploymentpolicies
+    - externalendpoints
+    - externalservices
+    - routetables
+    - virtualdestinations
+    - virtualgateways
+    - accesslogpolicies
+    - failoverpolicies
+    - faultinjectionpolicies
+    - outlierdetectionpolicies
+    - retrytimeoutpolicies
+    - accesspolicies
+    - corspolicies
+    - csrfpolicies
+    - extauthpolicies
+    - mirrorpolicies
+    - ratelimitclientconfigs
+    - ratelimitpolicies
+    - transformationpolicies
+  verbs:
+    - get
+    - watch
