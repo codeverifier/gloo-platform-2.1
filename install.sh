@@ -211,14 +211,14 @@ install_gloo_mesh() {
     rm -rf gloo-mesh-enterprise
 
     if [[ "$should_support_vault" == true ]]; then
-        envsubst < <(cat $DIR/core/gloo-mesh/gloo-mesh-mgmt-plane-disabled-self-ca.yaml) | helm install gloo-mesh-enterprise gloo-mesh-enterprise/gloo-mesh-enterprise \
+        envsubst < <(cat $DIR/core/gloo-mesh/gloo-mesh-mgmt-plane-disabled-self-ca-2.1.yaml) | helm install gloo-mesh-enterprise gloo-mesh-enterprise/gloo-mesh-enterprise \
             --kube-context ${MGMT_CONTEXT} \
             --namespace gloo-mesh \
             --version ${GLOO_MESH_HELM_VERSION} \
             --create-namespace \
             -f -
     else
-        envsubst < <(cat $DIR/core/gloo-mesh/gloo-mesh-mgmt-plane.yaml) | helm install gloo-mesh-enterprise gloo-mesh-enterprise/gloo-mesh-enterprise \
+        envsubst < <(cat $DIR/core/gloo-mesh/gloo-mesh-mgmt-plane-2.1.yaml) | helm install gloo-mesh-enterprise gloo-mesh-enterprise/gloo-mesh-enterprise \
             --kube-context ${MGMT_CONTEXT} \
             --namespace gloo-mesh \
             --version ${GLOO_MESH_HELM_VERSION} \
@@ -288,7 +288,7 @@ EOF
         --set relay.serverAddress=${ENDPOINT_GLOO_MESH} \
         --version $GLOO_MESH_HELM_VERSION \
         --create-namespace \
-        -f $DIR/core/gloo-mesh/gloo-mesh-agent.yaml
+        -f $DIR/core/gloo-mesh/gloo-mesh-agent-2.1.yaml
 
     kubectl --context ${EAST_CONTEXT} \
         -n gloo-mesh wait deploy/gloo-mesh-agent --for condition=Available=True --timeout=90s
@@ -304,7 +304,7 @@ EOF
         --set relay.serverAddress=${ENDPOINT_GLOO_MESH} \
         --version $GLOO_MESH_HELM_VERSION \
         --create-namespace \
-        -f $DIR/core/gloo-mesh/gloo-mesh-agent.yaml
+        -f $DIR/core/gloo-mesh/gloo-mesh-agent-2.1.yaml
 
     kubectl --context ${WEST_CONTEXT} \
         -n gloo-mesh wait deploy/gloo-mesh-agent --for condition=Available=True --timeout=90s

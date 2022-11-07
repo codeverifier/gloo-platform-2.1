@@ -11,7 +11,7 @@ Provision() {
     # On West Cluster
     kubectl --context ${WEST_CONTEXT} create ns bookinfo-frontends
     kubectl --context ${WEST_CONTEXT} create ns bookinfo-backends
-    curl https://raw.githubusercontent.com/istio/istio/1.12.6/samples/bookinfo/platform/kube/bookinfo.yaml -s|sed 's/docker\.io\/istio/us-central1-docker\.pkg\.dev\/solo-test-236622\/jmunozro/g'|tee bookinfo.yaml
+    curl https://raw.githubusercontent.com/istio/istio/${ISTIO_VERSION}/samples/bookinfo/platform/kube/bookinfo.yaml -s|sed 's/docker\.io\/istio/us-central1-docker\.pkg\.dev\/solo-test-236622\/jmunozro/g'|tee bookinfo.yaml
     kubectl --context ${WEST_CONTEXT} label namespace bookinfo-frontends istio.io/rev=$REVISION
     kubectl --context ${WEST_CONTEXT} label namespace bookinfo-backends istio.io/rev=$REVISION
     # Deploy the frontend bookinfo service in the bookinfo-frontends namespace
@@ -32,7 +32,7 @@ Provision() {
     # On East Cluster
     kubectl --context ${EAST_CONTEXT} create ns bookinfo-frontends
     kubectl --context ${EAST_CONTEXT} create ns bookinfo-backends
-    curl https://raw.githubusercontent.com/istio/istio/1.12.6/samples/bookinfo/platform/kube/bookinfo.yaml -s|sed 's/docker\.io\/istio/us-central1-docker\.pkg\.dev\/solo-test-236622\/jmunozro/g'|tee bookinfo.yaml
+    curl https://raw.githubusercontent.com/istio/istio/${ISTIO_VERSION}/samples/bookinfo/platform/kube/bookinfo.yaml -s|sed 's/docker\.io\/istio/us-central1-docker\.pkg\.dev\/solo-test-236622\/jmunozro/g'|tee bookinfo.yaml
     kubectl --context ${EAST_CONTEXT} label namespace bookinfo-frontends istio.io/rev=$REVISION
     kubectl --context ${EAST_CONTEXT} label namespace bookinfo-backends istio.io/rev=$REVISION
     # Deploy the frontend bookinfo service in the bookinfo-frontends namespace

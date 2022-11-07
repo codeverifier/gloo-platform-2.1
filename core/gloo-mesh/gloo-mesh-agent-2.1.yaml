@@ -24,6 +24,13 @@ maxGrpcMessageSize: "4294967295"
 # Number of metrics messages to buffer per Envoy proxy
 metricsBufferSize: 50
 
+gloo-network-agent:
+  enabled: false
+
+# Sidecar acceleration
+sidecar-accel:
+  enabled: false
+
 ext-auth-service:
   enabled: false
   extraTemplateAnnotations:
@@ -46,7 +53,7 @@ relay:
     name: relay-identity-token-secret
     namespace: ""
 
-# Configuration for the gloo-mesh-agent deployment
+# Configuration for the agent deployment
 glooMeshAgent:
   enabled: true
   env:
@@ -62,8 +69,10 @@ glooMeshAgent:
     registry: gcr.io/gloo-mesh
     repository: gloo-mesh-agent
 
+  # Service type
+  serviceType: ClusterIP
   ports:
-    # Port for gloo-mesh-agent service
+    # Port for agent service
     grpc: 9977
     http: 9988
     # Port on which to serve internal Prometheus metrics for the agent app
@@ -74,6 +83,23 @@ glooMeshAgent:
       memory: 128Mi
   # Static user ID to run the containers as. Unused if floatingUserId is 'true'
   runAsUser: 10101
-  serviceType: ClusterIP
   # Optional configuration for the deployed containers
   sidecars: {}
+
+# Subchart for setting up managed installations of Control Planes and Gateways in workload clusters (Disabled by default)
+managedInstallations:
+  enabled: false
+  cluster: ""
+  revision: gm
+  controlPlane:
+    enabled: true
+    overrides: {}
+  defaultRevision: true
+  eastWestGateways: null
+  images:
+    hub: ${ISTIO_SOLO_REPO}
+    tag: ${ISTIO_VERSION}
+  northSouthGateways:
+    - enabled: true
+      name: istio-ingressgateway
+      overrides: {}

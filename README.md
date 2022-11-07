@@ -22,10 +22,10 @@ Multicloud Gloo Platform demo with version `2.1.0-rc3`.
   ```
   export PROJECT="demo-gp-2-1"
   export CLUSTER_OWNER="kasunt"
-  export EKS_CLUSTER_REGION=ap-southeast-2
+  export EKS_CLUSTER_REGION=ap-southeast-1
   export GKE_CLUSTER_REGION=australia-southeast1
 
-  export PARENT_DOMAIN_NAME="${CLUSTER_OWNER}.fe.gl00.net"
+  export PARENT_DOMAIN_NAME="${CLUSTER_OWNER}.apac.fe.gl00.net"
   export DOMAIN_NAME="${PROJECT}.${PARENT_DOMAIN_NAME}"
 
   export EAST_CLUSTER="${PROJECT}-east-cluster"
@@ -37,14 +37,14 @@ Multicloud Gloo Platform demo with version `2.1.0-rc3`.
   export MGMT_CLOUD_PROVIDER="eks"
 
   export EAST_CONTEXT="gke_$(gcloud config get-value project)_${GKE_CLUSTER_REGION}_${CLUSTER_OWNER}-${EAST_CLUSTER}"
-  export WEST_CONTEXT="kasun@${CLUSTER_OWNER}-${WEST_CLUSTER}.${EKS_CLUSTER_REGION}.eksctl.io"
-  export MGMT_CONTEXT="kasun@${CLUSTER_OWNER}-${MGMT_CLUSTER}.${EKS_CLUSTER_REGION}.eksctl.io"
+  export WEST_CONTEXT="kasunt@${CLUSTER_OWNER}-${WEST_CLUSTER}.${EKS_CLUSTER_REGION}.eksctl.io"
+  export MGMT_CONTEXT="kasunt@${CLUSTER_OWNER}-${MGMT_CLUSTER}.${EKS_CLUSTER_REGION}.eksctl.io"
 
   export EAST_MESH_NAME="east-mesh"
   export WEST_MESH_NAME="west-mesh"
   export MGMT_MESH_NAME="mgmt-mesh"
   
-  export GLOO_MESH_VERSION="2.1.0-rc3"
+  export GLOO_MESH_VERSION="2.1.0"
   export GLOO_MESH_HELM_VERSION="v${GLOO_MESH_VERSION}"
 
   export ISTIO_VERSION="1.14.5"

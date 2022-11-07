@@ -288,7 +288,7 @@ install_cert_manager() {
 
     # Cluster wide issuer
     if [[ "$cluster_provider" == "eks" ]]; then
-        export CLUSTER_REGION=EKS_CLUSTER_REGION
+        export CLUSTER_REGION=$EKS_CLUSTER_REGION
         envsubst < <(cat $DIR/cert-manager/certificate-issuer-eks.yaml) | kubectl --context ${context} apply -f -
     elif [[ "$cluster_provider" == "gke" ]]; then
         envsubst < <(cat $DIR/cert-manager/certificate-issuer-gke.yaml) | kubectl --context ${context} apply -f -

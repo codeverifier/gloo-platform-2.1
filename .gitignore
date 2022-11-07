@@ -24,3 +24,7 @@ Thumbs.db
 !.vscode/extensions.json
 *.code-workspace
 .history/
+
+#### Application Specific ####
+##############################
+_output/**
